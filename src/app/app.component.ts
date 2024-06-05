@@ -1,14 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, effect, inject, signal, untracked } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
 import { RouterOutlet } from '@angular/router';
-import { BleedsResponse, DogImagesResponse } from './api.type';
-import { Bleed } from './bleed.types';
+import { BleedsResponse, DogImagesResponse } from './api-types';
+import { Bleed, SelectedBleed } from './bleed';
+import { BleedSelectorComponent } from './bleed-selector/bleed-selector.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FormsModule],
+  imports: [RouterOutlet, BleedSelectorComponent, MatButton],
   templateUrl: './app.component.html',
   styles: `
     :host {
@@ -21,7 +22,7 @@ export class AppComponent {
 
   readonly bleeds = signal<Bleed[]>([]);
   readonly dogImages = signal<string[]>([]);
-  readonly selectedBleed = signal<Bleed | null>(null);
+  readonly selectedBleed = signal<SelectedBleed | null>(null);
 
   readonly onBleedSelect = effect(() => {
     const selectedBleed = this.selectedBleed();
@@ -51,12 +52,12 @@ export class AppComponent {
           return { name, subBleeds } satisfies Bleed;
         });
         this.bleeds.set(bleeds);
-        this.selectedBleed.set(bleeds[0]);
+        this.selectedBleed.set({ base: bleeds[0].name });
       });
   }
 
-  #fetchDogImages(bleed: Bleed) {
-    const bleedKey = bleed.name;
+  #fetchDogImages(bleed: SelectedBleed) {
+    const bleedKey = bleed.sub ? `${bleed.base}/${bleed.sub}` : bleed.base;
 
     this.#http
       .get<DogImagesResponse>(

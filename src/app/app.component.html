@@ -1,27 +1,28 @@
 <div class="h-dvh flex flex-col">
   <header class="mx-4 my-2">
-    <h1 class="text-2xl">dog-ceo-viewer</h1>
+    <h1 class="text-4xl">dog-ceo-viewer</h1>
     <p class="text-gray-700">
       All dog resources are provided from
-      <a href="https://dog.ceo/dog-api/" class="appearance-auto"
-        >https://dog.ceo/dog-api/</a
-      >
+      <a href="https://dog.ceo/dog-api/" class="appearance-auto">
+        https://dog.ceo/dog-api/
+      </a>
     </p>
   </header>
 
   <main class="flex-auto flex flex-col mx-4 mb-2 gap-4">
-    <div class="p-4 border border-gray-700 rounded-lg flex flex-row gap-4">
-      <label>
-        Select a bleed
+    <div
+      class="p-4 border border-gray-700 rounded-lg flex flex-row gap-4 items-center"
+    >
+      <app-bleed-selector
+        [bleeds]="bleeds()"
+        [(selectedBleed)]="selectedBleed"
+      />
 
-        <select [(ngModel)]="selectedBleed">
-          @for (bleed of bleeds(); track bleed.name) {
-            <option [ngValue]="bleed">{{ bleed.name }}</option>
-          }
-        </select>
-      </label>
-
-      <button (click)="refreshImages()">Refresh Images</button>
+      <div>
+        <button mat-stroked-button (click)="refreshImages()">
+          Refresh Images
+        </button>
+      </div>
     </div>
 
     <div class="grid grid-cols-3">

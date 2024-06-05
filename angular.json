@@ -2,6 +2,13 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
+  "schematics": {
+    "@schematics/angular:component": {
+      "inlineStyle": true,
+      "changeDetection": "OnPush",
+      "displayBlock": true
+    }
+  },
   "projects": {
     "dog-ceo-viewer": {
       "projectType": "application",
@@ -23,7 +30,10 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.css"],
+            "styles": [
+              "@angular/material/prebuilt-themes/azure-blue.css",
+              "src/styles.css"
+            ],
             "scripts": [],
             "server": "src/main.server.ts",
             "prerender": true,
@@ -80,7 +90,10 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.css"],
+            "styles": [
+              "@angular/material/prebuilt-themes/azure-blue.css",
+              "src/styles.css"
+            ],
             "scripts": []
           }
         }

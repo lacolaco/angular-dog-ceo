@@ -1,4 +1,4 @@
-import { BleedName } from './bleed.types';
+import { BleedName } from './bleed';
 
 export type DogsApiResponse<T> = {
   message: T;
