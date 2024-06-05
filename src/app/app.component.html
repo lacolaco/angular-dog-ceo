@@ -1,4 +1,4 @@
-<div class="h-dvh grid grid-rows-[auto,1fr]">
+<div class="h-dvh grid grid-rows-[auto,minmax(0,1fr)]">
   <header class="mx-4 my-2 flex flex-col">
     <h1 class="text-4xl">dog-ceo-viewer</h1>
     <p class="my-0 leading-normal text-gray-700">
@@ -18,7 +18,7 @@
     </p>
   </header>
 
-  <main class="h-full grid grid-rows-[auto,1fr] mx-4 pb-2">
+  <main class="grid grid-rows-[auto,minmax(0,1fr)] mx-4 pb-2">
     <div class="py-4 flex flex-row gap-4 items-center">
       <app-bleed-selector
         [bleeds]="bleeds()"
