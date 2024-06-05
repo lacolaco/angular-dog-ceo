@@ -1,6 +1,6 @@
 <mat-form-field subscriptSizing="dynamic" appearance="outline">
+  <mat-label>Select a Bleed</mat-label>
   <mat-select [(ngModel)]="selectedBleed" [compareWith]="compareSelectedBleed">
-    <mat-label>Select a Bleed</mat-label>
     <mat-select-trigger>
       @if (selectedBleed(); as selectedBleed) {
         {{ selectedBleed.base }}
