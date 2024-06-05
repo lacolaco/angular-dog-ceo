@@ -1,3 +1,9 @@
-<h1>{{ title }}</h1>
+<div class="h-dvh flex flex-col">
+  <header class="mx-4 my-2">
+    <h1 class="text-2xl">{{ title }}</h1>
+  </header>
 
-<router-outlet />
+  <main class="flex-auto mx-4 mb-2">
+    <router-outlet />
+  </main>
+</div>
