@@ -71,7 +71,7 @@ export class AppComponent {
 
     this.#http
       .get<DogImagesResponse>(
-        `https://dog.ceo/api/breed/${bleedKey}/images/random/4`,
+        `https://dog.ceo/api/breed/${bleedKey}/images/random/3`,
       )
       .subscribe(({ message }) => {
         this.images.set(message.map((src) => ({ src, alt: `A dog image` })));
