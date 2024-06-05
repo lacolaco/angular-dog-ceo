@@ -1,4 +1,4 @@
-<div class="h-dvh flex flex-col">
+<div class="h-dvh grid grid-rows-[auto,1fr]">
   <header class="mx-4 my-2 flex flex-col">
     <h1 class="text-4xl">dog-ceo-viewer</h1>
     <p class="my-0 leading-normal text-gray-700">
@@ -18,10 +18,8 @@
     </p>
   </header>
 
-  <main class="flex-auto flex flex-col mx-4 mb-2 gap-4">
-    <div
-      class="p-4 border border-gray-700 rounded-lg flex flex-row gap-4 items-center"
-    >
+  <main class="h-full grid grid-rows-[auto,1fr] mx-4 mb-2 gap-4">
+    <div class="py-4 flex flex-row gap-4 items-center">
       <app-bleed-selector
         [bleeds]="bleeds()"
         [(selectedBleed)]="selectedBleed"
@@ -34,16 +32,6 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-3">
-      @for (image of dogImages(); track $index) {
-        <img
-          src="{{ image }}"
-          alt="Dog image {{ $index }}"
-          class="w-full object-contain"
-        />
-      } @empty {
-        <p>No images found</p>
-      }
-    </div>
+    <app-images-viewer [images]="images()" />
   </main>
 </div>

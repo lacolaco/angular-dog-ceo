@@ -1,0 +1,7 @@
+<div class="h-full grid grid-cols-2 gap-1">
+  @for (image of images(); track $index) {
+    <img [src]="image.src" [alt]="image.alt" class="w-full object-contain" />
+  } @empty {
+    <p>No images found</p>
+  }
+</div>

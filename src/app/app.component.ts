@@ -5,15 +5,25 @@ import { RouterOutlet } from '@angular/router';
 import { BleedsResponse, DogImagesResponse } from './api-types';
 import { Bleed, SelectedBleed } from './bleed';
 import { BleedSelectorComponent } from './bleed-selector/bleed-selector.component';
+import {
+  ImageItem,
+  ImagesViewerComponent,
+} from './images-viewer/images-viewer.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, BleedSelectorComponent, MatButton],
+  imports: [
+    RouterOutlet,
+    BleedSelectorComponent,
+    MatButton,
+    ImagesViewerComponent,
+  ],
   templateUrl: './app.component.html',
   styles: `
     :host {
       display: block;
+      height: 100%;
     }
   `,
 })
@@ -21,7 +31,7 @@ export class AppComponent {
   readonly #http = inject(HttpClient);
 
   readonly bleeds = signal<Bleed[]>([]);
-  readonly dogImages = signal<string[]>([]);
+  readonly images = signal<ImageItem[]>([]);
   readonly selectedBleed = signal<SelectedBleed | null>(null);
 
   readonly onBleedSelect = effect(() => {
@@ -61,10 +71,10 @@ export class AppComponent {
 
     this.#http
       .get<DogImagesResponse>(
-        `https://dog.ceo/api/breed/${bleedKey}/images/random/3`,
+        `https://dog.ceo/api/breed/${bleedKey}/images/random/4`,
       )
       .subscribe(({ message }) => {
-        this.dogImages.set(message);
+        this.images.set(message.map((src) => ({ src, alt: `A dog image` })));
       });
   }
 }
