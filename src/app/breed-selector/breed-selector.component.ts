@@ -6,13 +6,13 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
-import { Bleed, SelectedBleed, compareSelectedBleed } from '../bleed';
+import { Breed, SelectedBreed, compareSelectedBreed } from '../breed';
 
 @Component({
-  selector: 'app-bleed-selector',
+  selector: 'app-breed-selector',
   standalone: true,
   imports: [FormsModule, MatSelectModule],
-  templateUrl: './bleed-selector.component.html',
+  templateUrl: './breed-selector.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: `
     :host {
@@ -20,9 +20,9 @@ import { Bleed, SelectedBleed, compareSelectedBleed } from '../bleed';
     }
   `,
 })
-export class BleedSelectorComponent {
-  readonly bleeds = input.required<Bleed[]>();
-  readonly selectedBleed = model.required<SelectedBleed | null>();
+export class BreedSelectorComponent {
+  readonly breeds = input.required<Breed[]>();
+  readonly selectedBreed = model.required<SelectedBreed | null>();
 
-  readonly compareSelectedBleed = compareSelectedBleed;
+  readonly compareSelectedBreed = compareSelectedBreed;
 }

@@ -1,8 +1,15 @@
-import { Component, effect, inject, signal, untracked } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  effect,
+  inject,
+  signal,
+  untracked,
+} from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { RouterOutlet } from '@angular/router';
-import { Bleed, SelectedBleed } from './bleed';
-import { BleedSelectorComponent } from './bleed-selector/bleed-selector.component';
+import { Breed, SelectedBreed } from './breed';
+import { BreedSelectorComponent } from './breed-selector/breed-selector.component';
 import { DogApi } from './dog-api.service';
 import {
   ImageItem,
@@ -14,7 +21,7 @@ import {
   standalone: true,
   imports: [
     RouterOutlet,
-    BleedSelectorComponent,
+    BreedSelectorComponent,
     MatButton,
     ImagesViewerComponent,
   ],
@@ -26,42 +33,57 @@ import {
     }
   `,
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   readonly #dogApi = inject(DogApi);
 
-  readonly bleeds = signal<Bleed[]>([]);
+  readonly breeds = signal<Breed[]>([]);
   readonly images = signal<ImageItem[]>([]);
-  readonly selectedBleed = signal<SelectedBleed | null>(null);
+  readonly selectedBreed = signal<SelectedBreed | null>(null);
 
-  readonly onBleedSelect = effect(() => {
-    const selectedBleed = this.selectedBleed();
-    if (!selectedBleed) return;
+  readonly fetchImagesOnBeeedSelect = effect(() => {
+    const selectedBreed = this.selectedBreed();
+    if (!selectedBreed) return;
 
     untracked(() => {
-      this.#fetchDogImages(selectedBleed);
+      this.#fetchDogImages(selectedBreed);
     });
   });
 
   ngOnInit() {
-    this.#fetchAllBleeds();
+    this.#fetchAllBreeds();
+  }
+
+  selectRandomBreed() {
+    const breeds = this.breeds();
+    if (breeds.length === 0) return;
+
+    const breed = breeds.at(Math.floor(Math.random() * breeds.length))!;
+    if (breed.subBreeds.length === 0) {
+      this.selectedBreed.set({ base: breed.name });
+    } else {
+      const sub = breed.subBreeds.at(
+        Math.floor(Math.random() * breed.subBreeds.length),
+      )!;
+      this.selectedBreed.set({ base: breed.name, sub });
+    }
   }
 
   refreshImages() {
-    const selectedBleed = this.selectedBleed();
-    if (!selectedBleed) return;
+    const selectedBreed = this.selectedBreed();
+    if (!selectedBreed) return;
 
-    this.#fetchDogImages(selectedBleed);
+    this.#fetchDogImages(selectedBreed);
   }
 
-  #fetchAllBleeds() {
-    this.#dogApi.getAllBreeds().then((bleeds) => {
-      this.bleeds.set(bleeds);
-      this.selectedBleed.set({ base: bleeds[0].name });
+  #fetchAllBreeds() {
+    this.#dogApi.getAllBreeds().then((breeds) => {
+      this.breeds.set(breeds);
+      this.selectedBreed.set({ base: breeds[0].name });
     });
   }
 
-  #fetchDogImages(bleed: SelectedBleed) {
-    this.#dogApi.getRandomImages(bleed, 3).then((images) => {
+  #fetchDogImages(breed: SelectedBreed) {
+    this.#dogApi.getRandomImages(breed, 3).then((images) => {
       this.images.set(images.map((src) => ({ src, alt: `A dog image` })));
     });
   }

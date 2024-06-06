@@ -20,14 +20,17 @@
 
   <main class="grid grid-rows-[auto,minmax(0,1fr)] mx-4 pb-2">
     <div class="py-4 flex flex-row gap-4 items-center">
-      <app-bleed-selector
-        [bleeds]="bleeds()"
-        [(selectedBleed)]="selectedBleed"
+      <app-breed-selector
+        [breeds]="breeds()"
+        [(selectedBreed)]="selectedBreed"
       />
 
-      <div>
+      <div class="flex flex-row gap-x-2 items-center">
+        <button mat-stroked-button (click)="selectRandomBreed()">
+          Select Random Breed
+        </button>
         <button mat-stroked-button (click)="refreshImages()">
-          Refresh Images
+          Reload Images
         </button>
       </div>
     </div>

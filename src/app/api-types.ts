@@ -1,10 +1,10 @@
-import { BleedName } from './bleed';
+import { BreedName } from './breed';
 
 export type DogsApiResponse<T> = {
   message: T;
   status: string;
 };
 
-export type BleedsResponse = DogsApiResponse<Record<BleedName, BleedName[]>>;
+export type BreedsResponse = DogsApiResponse<Record<BreedName, BreedName[]>>;
 
 export type DogImagesResponse = DogsApiResponse<string[]>;

@@ -1,0 +1,31 @@
+<mat-form-field subscriptSizing="dynamic" appearance="outline">
+  <mat-label>Select a Breed</mat-label>
+  <mat-select [(ngModel)]="selectedBreed" [compareWith]="compareSelectedBreed">
+    <mat-select-trigger>
+      @if (selectedBreed(); as selectedBreed) {
+        {{ selectedBreed.base }}
+        @if (selectedBreed.sub) {
+          - {{ selectedBreed.sub }}
+        }
+      } @else {
+        Select a breed
+      }
+    </mat-select-trigger>
+
+    @for (breed of breeds(); track breed.name) {
+      @if (breed.subBreeds.length > 0) {
+        <mat-optgroup [label]="breed.name">
+          @for (subBreed of breed.subBreeds; track subBreed) {
+            <mat-option [value]="{ base: breed.name, sub: subBreed }">
+              {{ subBreed }}
+            </mat-option>
+          }
+        </mat-optgroup>
+      } @else {
+        <mat-option [value]="{ base: breed.name }">
+          {{ breed.name }}
+        </mat-option>
+      }
+    }
+  </mat-select>
+</mat-form-field>

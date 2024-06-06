@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BleedSelectorComponent } from './bleed-selector.component';
+import { BreedSelectorComponent } from './breed-selector.component';
 
-describe('BleedSelectorComponent', () => {
-  let component: BleedSelectorComponent;
-  let fixture: ComponentFixture<BleedSelectorComponent>;
+describe('BreedSelectorComponent', () => {
+  let component: BreedSelectorComponent;
+  let fixture: ComponentFixture<BreedSelectorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BleedSelectorComponent],
+      imports: [BreedSelectorComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(BleedSelectorComponent);
+    fixture = TestBed.createComponent(BreedSelectorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
